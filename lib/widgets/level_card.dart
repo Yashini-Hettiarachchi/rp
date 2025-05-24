@@ -3,7 +3,6 @@ import 'package:intl/intl.dart';
 import '../constants/env.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LevelCard extends StatefulWidget {
   final Map<String, dynamic> level;
@@ -24,45 +23,44 @@ class LevelCard extends StatefulWidget {
 }
 
 class _LevelCardState extends State<LevelCard> {
-  List<dynamic> previousRecords = [];
-  bool isLoadingRecords = false;
+  bool isLoadingPrediction = false;
+  Map<String, dynamic>? predictionData;
 
   String _formatDate(DateTime date) {
     return DateFormat('MMM dd, yyyy').format(date);
   }
 
-  Future<void> _fetchPreviousRecords() async {
+  Future<void> _fetchPrediction() async {
+    if (widget.progress == null) return;
+
     setState(() {
-      isLoadingRecords = true;
+      isLoadingPrediction = true;
     });
 
     try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      String username = prefs.getString('authEmployeeID') ?? "sampleUser";
-
       final response = await http
           .get(
             Uri.parse(
-                '${ENVConfig.serverUrl}/vocabulary-records/user/$username'),
+                '${ENVConfig.predictionUrl}?grade=${widget.progress!['grade']}&time_taken=${widget.progress!['timeTaken']}'),
           )
           .timeout(const Duration(seconds: 5));
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         setState(() {
-          previousRecords = data['records'] ?? [];
-          isLoadingRecords = false;
+          predictionData = data;
+          isLoadingPrediction = false;
         });
       } else {
         setState(() {
-          previousRecords = [];
-          isLoadingRecords = false;
+          predictionData = null;
+          isLoadingPrediction = false;
         });
       }
     } catch (e) {
       setState(() {
-        previousRecords = [];
-        isLoadingRecords = false;
+        predictionData = null;
+        isLoadingPrediction = false;
       });
     }
   }
@@ -146,7 +144,7 @@ class _LevelCardState extends State<LevelCard> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Activity Summary:',
+                              'Performance Analysis:',
                               style: TextStyle(
                                 color: widget.isUnlocked
                                     ? Colors.white
@@ -155,63 +153,79 @@ class _LevelCardState extends State<LevelCard> {
                               ),
                             ),
                             IconButton(
-                              icon: const Icon(Icons.history,
+                              icon: const Icon(Icons.analytics,
                                   color: Colors.white),
                               onPressed: () async {
-                                await _fetchPreviousRecords();
+                                await _fetchPrediction();
                                 if (!mounted) return;
 
                                 showDialog(
                                   context: context,
                                   builder: (context) => AlertDialog(
-                                    title: const Text('Previous Records'),
+                                    title: const Text('Performance Analysis'),
                                     content: SizedBox(
                                       width: double.maxFinite,
-                                      child: isLoadingRecords
+                                      child: isLoadingPrediction
                                           ? const Center(
                                               child:
                                                   CircularProgressIndicator())
-                                          : previousRecords.isEmpty
+                                          : predictionData == null
                                               ? const Center(
                                                   child: Text(
-                                                      'No previous records found'))
-                                              : ListView.builder(
-                                                  shrinkWrap: true,
-                                                  itemCount:
-                                                      previousRecords.length,
-                                                  itemBuilder:
-                                                      (context, index) {
-                                                    final record =
-                                                        previousRecords[index];
-                                                    return Card(
-                                                      margin: const EdgeInsets
-                                                          .symmetric(
-                                                          vertical: 4),
-                                                      child: ListTile(
-                                                        title: Text(
-                                                          record['activity'] ??
-                                                              'Vocabulary Activity',
-                                                          style: const TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        ),
-                                                        subtitle: Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
-                                                                'Score: ${record['score']}%'),
-                                                            Text(
-                                                                'Time: ${record['time_taken']}s'),
-                                                            Text(
-                                                                'Date: ${_formatDate(DateTime.parse(record['recorded_date']))}'),
-                                                          ],
+                                                      'Unable to fetch analysis'))
+                                              : Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    _buildAnalysisItem(
+                                                      'Current Grade',
+                                                      '${widget.progress!['grade'].toStringAsFixed(1)}%',
+                                                      Icons.grade,
+                                                    ),
+                                                    _buildAnalysisItem(
+                                                      'Time Taken',
+                                                      '${widget.progress!['timeTaken'].toStringAsFixed(1)}s',
+                                                      Icons.timer,
+                                                    ),
+                                                    const Divider(),
+                                                    _buildAnalysisItem(
+                                                      'Performance Adjustment',
+                                                      '${predictionData!['adjustment'].toStringAsFixed(1)}',
+                                                      Icons.trending_up,
+                                                      color: predictionData![
+                                                                  'adjustment'] >
+                                                              0
+                                                          ? Colors.green
+                                                          : Colors.red,
+                                                    ),
+                                                    const SizedBox(height: 8),
+                                                    Container(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8),
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.blue
+                                                            .withOpacity(0.1),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8),
+                                                      ),
+                                                      child: Text(
+                                                        predictionData![
+                                                                    'adjustment'] >
+                                                                0
+                                                            ? 'Great progress! Keep up the good work!'
+                                                            : 'Keep practicing to improve your performance!',
+                                                        style: const TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.bold,
                                                         ),
                                                       ),
-                                                    );
-                                                  },
+                                                    ),
+                                                  ],
                                                 ),
                                     ),
                                     actions: [
@@ -259,6 +273,35 @@ class _LevelCardState extends State<LevelCard> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildAnalysisItem(String label, String value, IconData icon,
+      {Color? color}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        children: [
+          Icon(icon, size: 20, color: color ?? Colors.blue),
+          const SizedBox(width: 8),
+          Text(
+            label,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            ),
+          ),
+          const Spacer(),
+          Text(
+            value,
+            style: TextStyle(
+              fontSize: 14,
+              color: color ?? Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
       ),
     );
   }

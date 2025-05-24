@@ -5,7 +5,6 @@ import 'package:chat_app/constants/styles.dart';
 import 'package:chat_app/models/session_provider.dart';
 import 'package:chat_app/navigations/home_screen.dart';
 import 'package:chat_app/navigations/image_test_screen.dart';
-import 'package:chat_app/navigations/previous_vocabulary_records_screen.dart';
 import 'package:chat_app/navigations/vocabulary_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
@@ -708,24 +707,181 @@ class _VocabularyLevelsScreenState extends State<VocabularyLevelsScreen> {
                                 ],
                               ),
                               const SizedBox(height: 8),
-                              ElevatedButton.icon(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            PreviousVocabularyRecordsScreen()),
-                                  );
-                                },
-                                icon: const Icon(Icons.history),
-                                label: const Text("Previous Records"),
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.orange[700],
-                                  foregroundColor: Colors.white,
-                                  minimumSize: const Size(double.infinity, 36),
+                              // Removed previous records button
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  // Level Prediction Card
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Container(
+                      padding: const EdgeInsets.all(16.0),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [Color(0xff80ca84), Color(0xff27a5c6)],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                        borderRadius: BorderRadius.circular(12.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black26,
+                            offset: Offset(0, 2),
+                            blurRadius: 6.0,
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text(
+                                "Level Prediction 📊",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
+                              IconButton(
+                                icon: const Icon(Icons.refresh,
+                                    color: Colors.white),
+                                onPressed: () async {
+                                  SharedPreferences prefs =
+                                      await SharedPreferences.getInstance();
+                                  final currentGrade =
+                                      prefs.getInt('vocabulary_difficulty') ??
+                                          1;
+                                  final lastTimeTaken =
+                                      prefs.getInt('last_time_taken') ?? 800;
+
+                                  try {
+                                    final prediction = await _getPrediction(
+                                        currentGrade, lastTimeTaken);
+                                    if (mounted) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text('Prediction updated!'),
+                                          duration: Duration(seconds: 2),
+                                        ),
+                                      );
+                                      setState(() {}); // Refresh the UI
+                                    }
+                                  } catch (e) {
+                                    if (mounted) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                              'Failed to update prediction'),
+                                          backgroundColor: Colors.red,
+                                        ),
+                                      );
+                                    }
+                                  }
+                                },
+                              ),
                             ],
+                          ),
+                          const SizedBox(height: 12),
+                          FutureBuilder<Map<String, dynamic>>(
+                            future: () async {
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+                              final currentGrade =
+                                  prefs.getInt('vocabulary_difficulty') ?? 1;
+                              final lastTimeTaken =
+                                  prefs.getInt('last_time_taken') ?? 800;
+                              return await _getPrediction(
+                                  currentGrade, lastTimeTaken);
+                            }(),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return const Center(
+                                    child: CircularProgressIndicator(
+                                        color: Colors.white));
+                              }
+
+                              if (snapshot.hasError) {
+                                return const Text(
+                                  "Unable to load prediction",
+                                  style: TextStyle(color: Colors.white),
+                                );
+                              }
+
+                              final data = snapshot.data!;
+                              final currentGrade = data['original_grade'];
+                              final adjustedGrade = data['adjusted_grade'];
+                              final adjustment = data['adjustment'];
+                              final status = data['status'];
+
+                              return Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      _buildPredictionItem(
+                                        "Current Level",
+                                        _getGrade(currentGrade),
+                                        Icons.star,
+                                      ),
+                                      _buildPredictionItem(
+                                        "Predicted Level",
+                                        _getGrade(adjustedGrade),
+                                        Icons.trending_up,
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 12),
+                                  Container(
+                                    padding: const EdgeInsets.all(8),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white24,
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          adjustment > 0
+                                              ? Icons.arrow_upward
+                                              : adjustment < 0
+                                                  ? Icons.arrow_downward
+                                                  : Icons.remove,
+                                          color: adjustment > 0
+                                              ? Colors.green
+                                              : adjustment < 0
+                                                  ? Colors.red
+                                                  : Colors.white,
+                                        ),
+                                        const SizedBox(width: 8),
+                                        Expanded(
+                                          child: Text(
+                                            adjustment > 0
+                                                ? "You're improving! Keep up the good work!"
+                                                : adjustment < 0
+                                                    ? "Focus on accuracy and speed to improve your level"
+                                                    : "Maintain your current performance",
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
                           ),
                         ],
                       ),
@@ -942,6 +1098,38 @@ class _VocabularyLevelsScreenState extends State<VocabularyLevelsScreen> {
           }
         },
         child: const Icon(Icons.home),
+      ),
+    );
+  }
+
+  Widget _buildPredictionItem(String label, String value, IconData icon) {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.white24,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Column(
+        children: [
+          Icon(icon, color: Colors.white, size: 24),
+          const SizedBox(height: 8),
+          Text(
+            label,
+            style: const TextStyle(
+              color: Colors.white70,
+              fontSize: 12,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            value,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
       ),
     );
   }

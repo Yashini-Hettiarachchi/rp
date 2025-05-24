@@ -74,7 +74,7 @@ class ENVConfig {
       "questions": [
         {
           "question": "What do you use to hold things?",
-          "options": ["Hand", "Book", "Tree", "Car"],
+          "options": ["Book", "Hand", "Tree", "Car"],
           "answer": "Hand"
         },
         {
@@ -84,7 +84,7 @@ class ENVConfig {
         },
         {
           "question": "What fruit is red and sweet?",
-          "options": ["Apple", "Car", "House", "Dog"],
+          "options": ["Car", "Apple", "House", "Dog"],
           "answer": "Apple"
         },
         {
@@ -114,7 +114,7 @@ class ENVConfig {
         },
         {
           "question": "Where do you go to learn new things?",
-          "options": ["School", "Hospital", "Park", "Beach"],
+          "options": ["Hospital", "School", "Park", "Beach"],
           "answer": "School"
         },
         {
