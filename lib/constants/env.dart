@@ -1,5 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class ENVConfig {
   // Server Details
@@ -13,9 +15,53 @@ class ENVConfig {
   static const String serverUrl =
       'https://9535-103-21-164-181.ngrok-free.app'; // Development
   // static const String serverUrl = 'https://your-eb-environment.elasticbeanstalk.com';  // Production
+  static const String predictionUrl =
+      'https://yasiruperera.pythonanywhere.com/predict';
 
   // API Route
   static const String loginRoute = '/api/login';
+
+  // Function to check if a level should be unlocked
+  static Future<bool> isLevelUnlocked(
+      int level, double currentGrade, double timeTaken) async {
+    // Level 1 is always unlocked
+    if (level == 1) return true;
+
+    try {
+      final response = await http.get(
+        Uri.parse('$predictionUrl?grade=$currentGrade&time_taken=$timeTaken'),
+      );
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        final adjustment = data['adjustment'] as double;
+
+        // If adjustment is positive, unlock next level
+        // If adjustment is negative, lock current level
+        return adjustment > 0;
+      }
+      return false;
+    } catch (e) {
+      print('Error checking level access: $e');
+      return false;
+    }
+  }
+
+  // Function to get level access status
+  static Future<Map<int, bool>> getLevelAccessStatus(
+      double currentGrade, double timeTaken) async {
+    Map<int, bool> levelAccess = {};
+
+    // Level 1 is always unlocked
+    levelAccess[1] = true;
+
+    // Check access for other levels
+    for (int i = 2; i <= levels.length; i++) {
+      levelAccess[i] = await isLevelUnlocked(i, currentGrade, timeTaken);
+    }
+
+    return levelAccess;
+  }
 
   static final List<Map<String, dynamic>> levels = [
     {
