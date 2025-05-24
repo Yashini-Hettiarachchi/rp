@@ -10,7 +10,8 @@ class ENVConfig {
   // IMPORTANT: Update this URL with your actual AWS Elastic Beanstalk URL before deployment
   static const bool useMockData =
       true; // Set to false when backend is available
-  static const String serverUrl = 'https://9535-103-21-164-181.ngrok-free.app'; // Development
+  static const String serverUrl =
+      'https://9535-103-21-164-181.ngrok-free.app'; // Development
   // static const String serverUrl = 'https://your-eb-environment.elasticbeanstalk.com';  // Production
 
   // API Route
@@ -26,52 +27,52 @@ class ENVConfig {
       "background": "assets/backgrounds/level1.jpg",
       "questions": [
         {
-          "question": "Which word means 'a part of the body'?",
+          "question": "What do you use to hold things?",
           "options": ["Hand", "Book", "Tree", "Car"],
           "answer": "Hand"
         },
         {
-          "question": "Which word means 'the color of the sky'?",
+          "question": "What color is the sky on a sunny day?",
           "options": ["Blue", "Red", "Green", "Yellow"],
           "answer": "Blue"
         },
         {
-          "question": "Which word means 'a sweet fruit'?",
+          "question": "What fruit is red and sweet?",
           "options": ["Apple", "Car", "House", "Dog"],
           "answer": "Apple"
         },
         {
-          "question": "Which word means 'something you sit on'?",
+          "question": "What do you sit on in class?",
           "options": ["Chair", "Table", "Bed", "Desk"],
           "answer": "Chair"
         },
         {
-          "question": "Which word means 'a tool for writing'?",
+          "question": "What do you use to write in your notebook?",
           "options": ["Pencil", "Eraser", "Ruler", "Scissors"],
           "answer": "Pencil"
         },
         {
-          "question": "Which word means 'an animal that barks'?",
+          "question": "What pet says 'woof woof'?",
           "options": ["Dog", "Cat", "Bird", "Fish"],
           "answer": "Dog"
         },
         {
-          "question": "Which word means 'a place where you live'?",
+          "question": "Where do you live with your family?",
           "options": ["House", "School", "Park", "Store"],
           "answer": "House"
         },
         {
-          "question": "Which word means 'a vehicle with four wheels'?",
+          "question": "What do you ride in to go places?",
           "options": ["Car", "Bike", "Boat", "Plane"],
           "answer": "Car"
         },
         {
-          "question": "Which word means 'a place where you learn'?",
+          "question": "Where do you go to learn new things?",
           "options": ["School", "Hospital", "Park", "Beach"],
           "answer": "School"
         },
         {
-          "question": "Which word means 'a person who teaches'?",
+          "question": "Who helps you learn in class?",
           "options": ["Teacher", "Doctor", "Farmer", "Driver"],
           "answer": "Teacher"
         }
@@ -86,54 +87,54 @@ class ENVConfig {
       "background": "assets/backgrounds/level2.jpg",
       "questions": [
         {
-          "question": "I have two ___ on my face.",
-          "options": ["eyes", "ears", "noses", "mouths"],
-          "answer": "eyes"
+          "question": "The big yellow ___ gives us light during the day.",
+          "options": ["sun", "moon", "star", "cloud"],
+          "answer": "sun"
         },
         {
-          "question": "The sky is ___ in color.",
-          "options": ["blue", "red", "green", "yellow"],
-          "answer": "blue"
-        },
-        {
-          "question": "I eat an ___ every day.",
-          "options": ["apple", "orange", "banana", "grape"],
-          "answer": "apple"
-        },
-        {
-          "question": "I sit on a ___ in the classroom.",
-          "options": ["chair", "table", "bed", "desk"],
-          "answer": "chair"
-        },
-        {
-          "question": "I write with a ___.",
+          "question": "I use my favorite ___ to do my homework.",
           "options": ["pencil", "eraser", "ruler", "scissors"],
           "answer": "pencil"
         },
         {
-          "question": "My pet ___ barks at strangers.",
+          "question": "My friendly ___ likes to play fetch with a ball.",
           "options": ["dog", "cat", "bird", "fish"],
           "answer": "dog"
         },
         {
-          "question": "I live in a ___ with my family.",
-          "options": ["house", "school", "park", "store"],
-          "answer": "house"
+          "question": "I eat a yummy ___ for my snack.",
+          "options": ["apple", "orange", "banana", "grape"],
+          "answer": "apple"
         },
         {
-          "question": "My father drives a ___ to work.",
-          "options": ["car", "bike", "boat", "plane"],
-          "answer": "car"
+          "question": "The pretty ___ is blue with fluffy white clouds.",
+          "options": ["sky", "ground", "water", "grass"],
+          "answer": "sky"
         },
         {
-          "question": "I learn new things at ___.",
-          "options": ["school", "hospital", "park", "beach"],
-          "answer": "school"
+          "question": "I put on my colorful ___ when it rains.",
+          "options": ["raincoat", "hat", "gloves", "scarf"],
+          "answer": "raincoat"
         },
         {
-          "question": "The ___ teaches us math and science.",
-          "options": ["teacher", "doctor", "farmer", "driver"],
-          "answer": "teacher"
+          "question": "The round ___ helps me know when to go to school.",
+          "options": ["clock", "book", "pen", "desk"],
+          "answer": "clock"
+        },
+        {
+          "question": "I use my soft ___ to clean my teeth.",
+          "options": ["toothbrush", "comb", "soap", "towel"],
+          "answer": "toothbrush"
+        },
+        {
+          "question": "The bright ___ helps me read at night.",
+          "options": ["lamp", "chair", "table", "bed"],
+          "answer": "lamp"
+        },
+        {
+          "question": "I put all my school things in my favorite ___.",
+          "options": ["backpack", "box", "bag", "basket"],
+          "answer": "backpack"
         }
       ]
     },
@@ -146,64 +147,58 @@ class ENVConfig {
       "background": "assets/backgrounds/level3.jpg",
       "questions": [
         {
-          "question": "👋 What body part is this?",
-          "imagePath": "assets/images/body_parts/hand.png",
-          "options": ["Hand", "Foot", "Ear", "Nose"],
-          "answer": "Hand"
+          "question": "What is this?",
+          "imagePath": "assets/images/kitchen/cup.png",
+          "options": ["Cup", "Foot", "Ear", "Nose"],
+          "answer": "Cup"
         },
         {
-          "question": "🎨 What color is this?",
-          "imagePath": "assets/images/colors/blue.png",
-          "options": ["Blue", "Red", "Green", "Yellow"],
-          "answer": "Blue"
+          "question": "🎨 What color is this cup?",
+          "imagePath": "assets/images/kitchen/cup.png",
+          "options": ["Red", "Blue", "Green", "Yellow"],
+          "answer": "Red"
         },
         {
-          "question": "🍎 What fruit is this?",
-          "imagePath": "assets/images/fruits/apple.png",
-          "options": ["Apple", "Orange", "Banana", "Grape"],
-          "answer": "Apple"
+          "question": "What is this?",
+          "imagePath": "assets/images/kitchen/spoon.png",
+          "options": ["Spoon", "Orange", "Banana", "Grape"],
+          "answer": "Spoon"
         },
         {
-          "question": "🪑 What is this object?",
-          "imagePath": "assets/images/objects/chair.png",
-          "options": ["Chair", "Table", "Bed", "Desk"],
-          "answer": "Chair"
+          "question": "What is this object?",
+          "imagePath": "assets/images/icons/gift.png",
+          "options": ["Gift", "Table", "Bed", "Desk"],
+          "answer": "Gift"
         },
         {
-          "question": "✏️ What is this object?",
-          "imagePath": "assets/images/objects/pencil.png",
-          "options": ["Pencil", "Eraser", "Ruler", "Scissors"],
-          "answer": "Pencil"
+          "question": "What is this object?",
+          "imagePath": "assets/images/desk/pen1.png",
+          "options": ["Pen", "Eraser", "Ruler", "Scissors"],
+          "answer": "Pen"
         },
         {
-          "question": "🐕 What animal is this?",
+          "question": "What is this?",
           "imagePath": "assets/images/animals/dog.png",
           "options": ["Dog", "Cat", "Bird", "Fish"],
           "answer": "Dog"
         },
         {
-          "question": "🏠 What is this building?",
-          "imagePath": "assets/images/buildings/house.png",
-          "options": ["House", "School", "Hospital", "Store"],
-          "answer": "House"
+          "question": "What is this?",
+          "imagePath": "assets/desk/eraser1.png",
+          "options": ["Eraser", "Pen", "Pencil", "Car"],
+          "answer": "Eraser"
         },
         {
-          "question": "🚗 What vehicle is this?",
-          "imagePath": "assets/images/vehicles/car.png",
-          "options": ["Car", "Bike", "Bus", "Train"],
-          "answer": "Car"
+          "question": "What place is this?",
+          "imagePath": "assets/desk/book2.png",
+          "options": ["Book", "Pen", "Pencil", "Car"],
+          "answer": "Book"
         },
         {
-          "question": "🏫 What place is this?",
-          "imagePath": "assets/images/places/school.png",
-          "options": ["School", "Hospital", "Park", "Beach"],
-          "answer": "School"
-        },
-        {
-          "question": "👩‍🏫 What profession is this?",
-          "imagePath": "assets/images/professions/teacher.png",
-          "options": ["Teacher", "Doctor", "Farmer", "Driver"],
-          "answer": "Teacher"
+          "question": "What is this?",
+          "imagePath": "assets/desk/book1.png",
+          "options": ["Book", "Pen", "Pencil", "Car"],
+          "answer": "Book"
         }
       ]
     },
@@ -216,52 +211,53 @@ class ENVConfig {
       "color": const Color(0xFF2196F3),
       "questions": [
         {
-          "question": "🚗 I drive a ______ to work.",
-          "options": ["Car", "Bicycle", "Bus", "Train"],
-          "answer": "Car"
+          "question": "What big yellow vehicle takes you to school?",
+          "options": ["School Bus", "Airplane", "Ship", "Train"],
+          "answer": "School Bus"
         },
         {
-          "question": "✈️ I fly in an ______ to travel far.",
-          "options": ["Airplane", "Helicopter", "Rocket", "Balloon"],
-          "answer": "Airplane"
-        },
-        {
-          "question": "🚲 I ride a ______ to school.",
+          "question":
+              "What do you ride when you want to have fun and exercise?",
           "options": ["Bicycle", "Car", "Bus", "Train"],
           "answer": "Bicycle"
         },
         {
-          "question": "🚂 A ______ runs on tracks.",
+          "question": "What long vehicle goes 'choo choo' on tracks?",
           "options": ["Train", "Bus", "Car", "Bicycle"],
           "answer": "Train"
         },
         {
-          "question": "🚌 I take the ______ to the city.",
+          "question": "What big boat can carry cars across water?",
+          "options": ["Ferry", "Airplane", "Car", "Train"],
+          "answer": "Ferry"
+        },
+        {
+          "question": "What do you take to go shopping with your family?",
           "options": ["Bus", "Car", "Train", "Bicycle"],
           "answer": "Bus"
         },
         {
-          "question": "🚢 A ______ floats on water.",
-          "options": ["Ship", "Airplane", "Car", "Train"],
-          "answer": "Ship"
-        },
-        {
-          "question": "🚁 A ______ can hover in the air.",
+          "question": "What flying vehicle can help people in trouble?",
           "options": ["Helicopter", "Airplane", "Rocket", "Balloon"],
           "answer": "Helicopter"
         },
         {
-          "question": "🚤 A small ______ moves fast on water.",
+          "question": "What small boat do you use to go fishing with dad?",
           "options": ["Boat", "Ship", "Submarine", "Raft"],
           "answer": "Boat"
         },
         {
-          "question": "🚀 A ______ goes to space.",
+          "question": "What special vehicle takes people to the moon?",
           "options": ["Rocket", "Airplane", "Helicopter", "Balloon"],
           "answer": "Rocket"
         },
         {
-          "question": "🚲 I pedal a ______ to move.",
+          "question": "What big flying vehicle takes you on vacation?",
+          "options": ["Airplane", "Helicopter", "Rocket", "Balloon"],
+          "answer": "Airplane"
+        },
+        {
+          "question": "What do you ride to the park with your friends?",
           "options": ["Bicycle", "Car", "Bus", "Train"],
           "answer": "Bicycle"
         }
@@ -276,53 +272,64 @@ class ENVConfig {
       "color": const Color(0xFFFF5722),
       "questions": [
         {
-          "question": "☀️ The ______ shines during the day.",
-          "options": ["Sun", "Moon", "Star", "Cloud"],
-          "answer": "Sun"
+          "question": "What happens to water when you put it in the freezer?",
+          "options": [
+            "It freezes",
+            "It evaporates",
+            "It disappears",
+            "It changes color"
+          ],
+          "answer": "It freezes"
         },
         {
-          "question": "🌧️ Water falls from the sky as ______.",
-          "options": ["Rain", "Snow", "Hail", "Fog"],
-          "answer": "Rain"
+          "question": "What do you hold over your head when it's raining?",
+          "options": ["Umbrella", "Sunglasses", "Hat", "Gloves"],
+          "answer": "Umbrella"
         },
         {
-          "question": "❄️ White flakes fall as ______ in winter.",
-          "options": ["Snow", "Rain", "Hail", "Fog"],
-          "answer": "Snow"
+          "question": "What fun thing can you make when it snows?",
+          "options": ["Snowman", "Sandcastle", "Mud pie", "Leaf pile"],
+          "answer": "Snowman"
         },
         {
-          "question": "🌪️ A strong spinning wind is a ______.",
-          "options": ["Tornado", "Hurricane", "Storm", "Rain"],
-          "answer": "Tornado"
+          "question": "What's the safest thing to do when there's a big storm?",
+          "options": [
+            "Stay inside",
+            "Go outside",
+            "Play in the rain",
+            "Climb trees"
+          ],
+          "answer": "Stay inside"
         },
         {
-          "question": "🌊 A large wave in the ocean is a ______.",
-          "options": ["Tsunami", "Tide", "Wave", "Current"],
-          "answer": "Tsunami"
+          "question": "What do you wear to go swimming in the pool?",
+          "options": ["Swimsuit", "Winter coat", "Rain boots", "Sweater"],
+          "answer": "Swimsuit"
         },
         {
-          "question": "🌋 A mountain that erupts is a ______.",
-          "options": ["Volcano", "Hill", "Mountain", "Valley"],
-          "answer": "Volcano"
+          "question": "What hot, red stuff comes out of a volcano?",
+          "options": ["Lava", "Water", "Air", "Sand"],
+          "answer": "Lava"
         },
         {
-          "question": "🌪️ A violent storm with wind is a ______.",
-          "options": ["Hurricane", "Tornado", "Storm", "Rain"],
-          "answer": "Hurricane"
+          "question": "What makes the leaves dance on the trees?",
+          "options": ["Wind", "Rain", "Snow", "Sun"],
+          "answer": "Wind"
         },
         {
-          "question": "🌫️ Thick mist in the air is called ______.",
-          "options": ["Fog", "Cloud", "Rain", "Snow"],
+          "question":
+              "What makes it hard to see when you walk to school in the morning?",
+          "options": ["Fog", "Rain", "Snow", "Wind"],
           "answer": "Fog"
         },
         {
-          "question": "🌩️ Bright light in the sky during a storm is ______.",
-          "options": ["Lightning", "Thunder", "Rain", "Wind"],
-          "answer": "Lightning"
+          "question": "What makes a big 'BOOM' sound during a storm?",
+          "options": ["Thunder", "Wind", "Rain", "Snow"],
+          "answer": "Thunder"
         },
         {
-          "question": "🌬️ Moving air is called ______.",
-          "options": ["Wind", "Rain", "Snow", "Hail"],
+          "question": "What helps your kite fly high in the sky?",
+          "options": ["Wind", "Rain", "Snow", "Sun"],
           "answer": "Wind"
         }
       ]
