@@ -186,65 +186,56 @@ class ENVConfig {
     },
     {
       "title": "Level 1: Visual Identification 👁️",
-      "description": "Identify objects from pictures 🖼️",
+      "description": "Identify objects from emojis 🖼️",
       "difficulty": 0,
       "type": "basic",
       "color": Colors.orange,
       "background": "assets/backgrounds/level3.jpg",
       "questions": [
         {
-          "question": "What is this?",
-          "imagePath": "assets/images/kitchen/cup.png",
+          "question": "What is this? 🥤",
           "options": ["Cup", "Foot", "Ear", "Nose"],
           "answer": "Cup"
         },
         {
-          "question": "🎨 What color is this cup?",
-          "imagePath": "assets/images/kitchen/cup.png",
-          "options": ["Red", "Blue", "Green", "Yellow"],
-          "answer": "Red"
-        },
-        {
-          "question": "What is this?",
-          "imagePath": "assets/images/kitchen/spoon.png",
+          "question": "What is this? 🥄",
           "options": ["Spoon", "Orange", "Banana", "Grape"],
           "answer": "Spoon"
         },
         {
-          "question": "What is this object?",
-          "imagePath": "assets/images/icons/gift.png",
+          "question": "What is this? 🎁",
           "options": ["Gift", "Table", "Bed", "Desk"],
           "answer": "Gift"
         },
         {
-          "question": "What is this object?",
-          "imagePath": "assets/images/desk/pen1.png",
+          "question": "What is this? ✒️",
           "options": ["Pen", "Eraser", "Ruler", "Scissors"],
           "answer": "Pen"
         },
         {
-          "question": "What is this?",
-          "imagePath": "assets/images/animals/dog.png",
+          "question": "What is this? 🐕",
           "options": ["Dog", "Cat", "Bird", "Fish"],
           "answer": "Dog"
         },
         {
-          "question": "What is this?",
-          "imagePath": "assets/desk/eraser1.png",
-          "options": ["Eraser", "Pen", "Pencil", "Car"],
-          "answer": "Eraser"
+          "question": "What is this? 🧹",
+          "options": ["Broom", "Pen", "Pencil", "Car"],
+          "answer": "Broom"
         },
         {
-          "question": "What place is this?",
-          "imagePath": "assets/desk/book2.png",
+          "question": "What is this? 📚",
           "options": ["Book", "Pen", "Pencil", "Car"],
           "answer": "Book"
         },
         {
-          "question": "What is this?",
-          "imagePath": "assets/desk/book1.png",
-          "options": ["Book", "Pen", "Pencil", "Car"],
-          "answer": "Book"
+          "question": "What is this? 🎨",
+          "options": ["Paint", "Pen", "Pencil", "Car"],
+          "answer": "Paint"
+        },
+        {
+          "question": "What is this? 🎮",
+          "options": ["Game", "Pen", "Pencil", "Car"],
+          "answer": "Game"
         }
       ]
     },

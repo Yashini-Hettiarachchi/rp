@@ -39,7 +39,6 @@ class _PreviousVocabularyRecordsScreenState
       )
           .timeout(const Duration(seconds: 5), onTimeout: () {
         debugPrint('Request timed out');
-        // Return a fake response instead of throwing an exception
         return http.Response('{"error": "timeout"}', 408);
       });
 
@@ -47,17 +46,25 @@ class _PreviousVocabularyRecordsScreenState
         final data = jsonDecode(response.body);
         if (mounted) {
           setState(() {
-            records = data['records'];
+            records = data['records'] ?? [];
+            isLoading = false;
+          });
+        }
+      } else if (response.statusCode == 404) {
+        debugPrint('No records found for user: $username');
+        if (mounted) {
+          setState(() {
+            records = [];
             isLoading = false;
           });
         }
       } else {
-        // If server fails, use mock data for demonstration
+        debugPrint('Server returned error: ${response.statusCode}');
+        debugPrint('Response body: ${response.body}');
         _useMockData();
       }
     } catch (e) {
       debugPrint('Error fetching vocabulary records: $e');
-      // If any error occurs, use mock data
       _useMockData();
     }
   }
