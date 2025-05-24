@@ -73,25 +73,8 @@ class _PreviousVocabularyRecordsScreenState
   void _useMockData() {
     if (mounted) {
       setState(() {
+        // Provide only the last mock record when server is unavailable
         records = [
-          {
-            'activity': 'Word Matching',
-            'type': 'basic',
-            'recorded_date':
-                DateTime.now().subtract(Duration(days: 1)).toIso8601String(),
-            'score': 85.0,
-            'time_taken': 120,
-            'difficulty': 1
-          },
-          {
-            'activity': 'Filling Blanks',
-            'type': 'basic',
-            'recorded_date':
-                DateTime.now().subtract(Duration(days: 3)).toIso8601String(),
-            'score': 90.0,
-            'time_taken': 150,
-            'difficulty': 2
-          },
           {
             'activity': 'Visual Identification',
             'type': 'basic',
